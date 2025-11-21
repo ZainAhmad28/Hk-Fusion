@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HK Brand — Jackets • Glasses • Shoes</title>
+  <meta name="description" content="HK Brand — premium jackets, glasses and shoes. Clean storefront with Add to Cart and checkout demo." />
+
+  <style>
+    :root{--bg:#f6f7fb;--card:#ffffff;--accent:#111827;--muted:#6b7280;--accent-2:#d97706}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; background:var(--bg); color:var(--accent)}
+    a{color:inherit;text-decoration:none}
+
+    /* Header */
+    header{background:linear-gradient(90deg,#0f172a 0%, #0b1220 100%); color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:6px;background:#fff;color:#000;display:grid;place-items:center;font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    .slogan{font-size:12px;color:rgba(255,255,255,0.75)}
+    nav a{margin-left:18px;font-size:14px;opacity:.95}
+
+    /* Hero */
+    .hero{padding:36px 24px;display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center}
+    .hero-card{background:linear-gradient(180deg,#fff 0%, #fbfdff 100%);border-radius:12px;padding:24px;box-shadow:0 10px 20px rgba(2,6,23,0.08)}
+    .hero h2{margin:0 0 8px;font-size:28px}
+    .hero p{margin:0 0 16px;color:var(--muted)}
+    .cta{display:inline-block;background:var(--accent-2);color:#fff;padding:10px 16px;border-radius:8px}
+
+    /* Categories */
+    .categories{display:flex;gap:12px;margin-top:14px}
+    .cat{background:var(--card);padding:12px;border-radius:10px;flex:1;text-align:center;box-shadow:0 6px 10px rgba(2,6,23,0.04)}
+    .cat h3{margin:8px 0 0}
+
+    /* Product grid */
+    .container{padding:24px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+    .product{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 6px 12px rgba(2,6,23,0.04);display:flex;flex-direction:column}
+    .product img{width:100%;height:200px;object-fit:cover;border-radius:8px}
+    .p-info{padding:10px 0;flex:1;display:flex;flex-direction:column}
+    .p-title{font-weight:600;margin:0 0 6px}
+    .p-price{font-weight:700}
+    .p-actions{display:flex;gap:8px;margin-top:10px}
+    .btn{padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+    .btn-primary{background:var(--accent-2);color:white}
+    .btn-ghost{background:transparent;border:1px solid #e5e7eb}
+
+    /* Cart */
+    .cart-toggle{position:relative}
+    .cart-count{background:#ef4444;color:#fff;padding:3px 7px;border-radius:999px;font-size:12px;position:absolute;right:-8px;top:-8px}
+    .cart-drawer{position:fixed;right:18px;top:72px;width:360px;max-height:72vh;background:var(--card);border-radius:12px;box-shadow:0 30px 60px rgba(2,6,23,0.18);padding:14px;overflow:auto;display:none}
+    .cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+
+    /* Footer */
+    footer{padding:24px;background:#0b1220;color:#fff;margin-top:30px}
+    .policies{display:flex;gap:12px}
+
+    /* Responsive */
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr}
+      .hero-card{order:2}
+    }
+
+    /* Small helper */
+    .muted{color:var(--muted);font-size:13px}
+    .badge{background:#f0fdf4;border-radius:6px;padding:4px 8px;font-size:13px;color:#166534}
+    .center{display:flex;align-items:center;justify-content:center}
+
+    /* Modal for policies */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center}
+    .modal{background:#fff;padding:20px;border-radius:10px;max-width:720px;max-height:80vh;overflow:auto}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="logo">HK</div>
+      <div>
+        <h1>HK Brand</h1>
+        <div class="slogan">Wear Confidence. Wear HK.</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <span class="cart-toggle">
+        <button id="openCart" class="btn btn-ghost">Cart 🛒 <span id="cartCount" class="cart-count">0</span></button>
+      </span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-card">
+        <h2>HK Brand — Jackets, Glasses & Shoes</h2>
+        <p>Quality materials, modern cuts and dependable style. Shop our curated collection of jackets, eyewear and footwear.</p>
+        <a class="cta" href="#shop">Shop Now</a>
+
+        <div class="categories">
+          <div class="cat">
+            <img src="https://via.placeholder.com/120x80?text=Jackets" alt="Jackets" style="width:100%;border-radius:8px;margin-bottom:8px">
+            <h3>Jackets</h3>
+          </div>
+          <div class="cat">
+            <img src="https://via.placeholder.com/120x80?text=Glasses" alt="Glasses" style="width:100%;border-radius:8px;margin-bottom:8px">
+            <h3>Glasses</h3>
+          </div>
+          <div class="cat">
+            <img src="https://via.placeholder.com/120x80?text=Shoes" alt="Shoes" style="width:100%;border-radius:8px;margin-bottom:8px">
+            <h3>Shoes</h3>
+          </div>
+        </div>
+      </div>
+
+      <aside style="text-align:center">
+        <img src="https://via.placeholder.com/360x420?text=HK+Style" alt="HK" style="width:100%;border-radius:12px;object-fit:cover">
+        <div style="margin-top:10px;color:var(--muted)">Free shipping over PKR 3,500 • COD available</div>
+      </aside>
+    </section>
+
+    <section class="container" id="shop">
+      <h2 style="margin-top:0">Shop</h2>
+      <div class="grid" id="productsGrid">
+        <!-- Products will render here -->
+      </div>
+    </section>
+
+    <section class="container" id="about">
+      <h2>About HK Brand</h2>
+      <p class="muted">HK Brand is a small, quality-first brand focused on comfortable and stylish everyday wear. We source materials carefully and stand behind the quality of our products.</p>
+    </section>
+
+    <section class="container" id="contact">
+      <h2>Contact Us</h2>
+      <p class="muted">Email: hello@hkbrand.example • WhatsApp: +92-300-0000000</p>
+    </section>
+  </main>
+
+  <!-- Cart drawer -->
+  <div id="cartDrawer" class="cart-drawer" aria-hidden="true">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>
+    <div style="padding-top:12px">
+      <div class="muted">Subtotal: <span id="cartSubtotal">PKR 0</span></div>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button id="checkoutBtn" class="btn btn-primary">Checkout</button>
+        <button id="clearCart" class="btn btn-ghost">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout / Payment modal -->
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <h3>Checkout</h3>
+      <form id="checkoutForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <input required name="name" placeholder="Full name" />
+          <input required name="phone" placeholder="Phone" />
+          <input required name="address" placeholder="Delivery address" style="grid-column:1 / -1" />
+        </div>
+
+        <h4 style="margin-top:12px">Payment method</h4>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          <label><input type="radio" name="payment" value="COD" checked> Cash on Delivery</label>
+          <label><input type="radio" name="payment" value="Easypaisa"> Easypaisa / JazzCash</label>
+          <label><input type="radio" name="payment" value="Card"> Card (Mock)</label>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:8px">
+          <button type="submit" class="btn btn-primary">Place Order</button>
+          <button type="button" id="cancelCheckout" class="btn btn-ghost">Cancel</button>
+        </div>
+      </form>
+      <hr />
+      <small class="muted">This is a demo checkout. Integrate a real payment gateway (Stripe, PayFast, PayPal, Easypaisa API) for production.</small>
+    </div>
+  </div>
+
+  <!-- Policies modal -->
+  <div id="policyBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <h3>Terms & Policies</h3>
+      <h4>Privacy Policy</h4>
+      <p class="muted">We collect only necessary data for delivery and payment. We never share personal data with third parties without consent.</p>
+      <h4>Shipping Policy</h4>
+      <p class="muted">Local delivery in Pakistan: 3–7 business days. Tracking provided when available. Shipping rates calculated at checkout.</p>
+      <h4>Refund & Return Policy</h4>
+      <p class="muted">Returns accepted within 7 days for unused items with original tags. Refunds processed after inspection.</p>
+      <div style="margin-top:12px"><button id="closePolicies" class="btn btn-ghost">Close</button></div>
+    </div>
+  </div>
+
+  <footer>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div>
+        <strong>HK Brand</strong>
+        <div class="muted">Slogan: Wear Confidence. Wear HK.</div>
+      </div>
+      <div class="policies">
+        <a href="#" id="openPolicies">Privacy & Policies</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Demo product data
+    const products = [
+      {id:1,title:'Classic Leather Jacket',category:'Jackets',price:12999,images:['https://via.placeholder.com/600x400?text=Jacket+1']},
+      {id:2,title:'Puffer Winter Jacket',category:'Jackets',price:8999,images:['https://via.placeholder.com/600x400?text=Jacket+2']},
+      {id:3,title:'Aviator Sunglasses',category:'Glasses',price:2999,images:['https://via.placeholder.com/600x400?text=Glasses+1']},
+      {id:4,title:'Round Frame Sunglasses',category:'Glasses',price:2499,images:['https://via.placeholder.com/600x400?text=Glasses+2']},
+      {id:5,title:'Running Shoes',category:'Shoes',price:5999,images:['https://via.placeholder.com/600x400?text=Shoes+1']},
+      {id:6,title:'Casual Sneakers',category:'Shoes',price:4499,images:['https://via.placeholder.com/600x400?text=Shoes+2']}
+    ];
+
+    // Render products
+    const grid = document.getElementById('productsGrid');
+    products.forEach(p=>{
+      const el = document.createElement('article'); el.className='product';
+      el.innerHTML = `
+        <img src="${p.images[0]}" alt="${p.title}">
+        <div class="p-info">
+          <h3 class="p-title">${p.title}</h3>
+          <div class="muted">${p.category}</div>
+          <div class="p-price">PKR ${p.price.toLocaleString()}</div>
+          <div class="p-actions">
+            <button class="btn btn-primary" data-add="${p.id}">Add to Cart</button>
+            <button class="btn btn-ghost" data-view="${p.id}">View</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(el);
+    });
+
+    // Cart state
+    let cart = JSON.parse(localStorage.getItem('hk_cart')||'{}');
+    const cartCount = document.getElementById('cartCount');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartSubtotalEl = document.getElementById('cartSubtotal');
+
+    function saveCart(){ localStorage.setItem('hk_cart', JSON.stringify(cart)); }
+    function updateCartCount(){ const qty = Object.values(cart).reduce((s,i)=>s+i.qty,0); cartCount.textContent=qty; }
+
+    function renderCart(){
+      cartItemsEl.innerHTML='';
+      let subtotal=0;
+      for(const id in cart){
+        const item = cart[id];
+        subtotal += item.price * item.qty;
+        const row = document.createElement('div'); row.className='cart-item';
+        row.innerHTML = `<img src="${item.image}" alt=""><div style="flex:1"><strong>${item.title}</strong><div class='muted'>PKR ${item.price.toLocaleString()}</div><div style='margin-top:6px'><button class='btn btn-ghost' data-decrease='${id}'>-</button> <span style='padding:6px'>${item.qty}</span> <button class='btn btn-ghost' data-increase='${id}'>+</button></div></div><div><button class='btn btn-ghost' data-remove='${id}'>Remove</button></div>`;
+        cartItemsEl.appendChild(row);
+      }
+      cartSubtotalEl.textContent = 'PKR ' + subtotal.toLocaleString();
+      updateCartCount();
+      saveCart();
+    }
+
+    // Add to cart handler (event delegation)
+    document.body.addEventListener('click', e=>{
+      const add = e.target.closest('[data-add]');
+      if(add){
+        const id = add.getAttribute('data-add');
+        const p = products.find(x=>x.id==id);
+        if(!cart[id]) cart[id] = {id:p.id,title:p.title,price:p.price,qty:0,image:p.images[0]};
+        cart[id].qty += 1;
+        renderCart();
+        // open cart drawer briefly
+        openCart();
+        return;
+      }
+      const view = e.target.closest('[data-view]');
+      if(view){
+        const id = view.getAttribute('data-view');
+        const p = products.find(x=>x.id==id);
+        alert(p.title + "\n\nPrice: PKR " + p.price.toLocaleString() + "\n\n(Use Add to Cart to add this product)");
+        return;
+      }
+
+      // cart drawer controls
+      const inc = e.target.closest('[data-increase]'); if(inc){ const id=inc.getAttribute('data-increase'); cart[id].qty+=1; renderCart(); return; }
+      const dec = e.target.closest('[data-decrease]'); if(dec){ const id=dec.getAttribute('data-decrease'); cart[id].qty = Math.max(0, cart[id].qty-1); if(cart[id].qty===0) delete cart[id]; renderCart(); return; }
+      const rem = e.target.closest('[data-remove]'); if(rem){ const id=rem.getAttribute('data-remove'); delete cart[id]; renderCart(); return; }
+
+      if(e.target.id === 'openCart' || e.target.closest('#openCart')){ openCart(); return; }
+      if(e.target.id === 'clearCart'){ cart = {}; renderCart(); return; }
+      if(e.target.id === 'checkoutBtn'){ openCheckout(); return; }
+    });
+
+    // Open / close cart
+    function openCart(){ cartDrawer.style.display='block'; cartDrawer.setAttribute('aria-hidden','false'); renderCart(); }
+    // Close cart on outside click
+    document.addEventListener('click', e=>{
+      if(!e.target.closest('.cart-drawer') && !e.target.closest('#openCart')){
+        // don't auto-close if click on checkout elements
+      }
+    });
+
+    // Checkout modal
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const cancelCheckout = document.getElementById('cancelCheckout');
+    function openCheckout(){ if(Object.keys(cart).length===0){ alert('Your cart is empty'); return; } modalBackdrop.style.display='flex'; }
+    cancelCheckout.addEventListener('click', ()=>modalBackdrop.style.display='none');
+    checkoutForm.addEventListener('submit', e=>{
+      e.preventDefault();
+      // Collect order data
+      const fd = new FormData(checkoutForm);
+      const order = { customer: fd.get('name'), phone: fd.get('phone'), address: fd.get('address'), payment: fd.get('payment'), items: cart };
+      console.log('ORDER (demo):', order);
+      // Demo: clear cart and close
+      alert('Order placed (demo). Check console for order details.');
+      cart = {}; renderCart(); modalBackdrop.style.display='none'; cartDrawer.style.display='none';
+    });
+
+    // Policies modal
+    const policyBackdrop = document.getElementById('policyBackdrop');
+    document.getElementById('openPolicies').addEventListener('click', e=>{ e.preventDefault(); policyBackdrop.style.display='flex'; });
+    document.getElementById('closePolicies').addEventListener('click', ()=>policyBackdrop.style.display='none');
+
+    // Initialize
+    updateCartCount(); renderCart();
+
+    // Small UX: close modals when clicking outside
+    [modalBackdrop, policyBackdrop].forEach(back=>{
+      back.addEventListener('click', e=>{ if(e.target===back) back.style.display='none'; });
+    });
+  </script>
+</body>
+</html>
